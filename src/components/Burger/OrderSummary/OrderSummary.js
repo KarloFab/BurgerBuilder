@@ -13,7 +13,7 @@ const ingredientsSummary = Object.keys(props.ingredients)
     });
   return (
     <Fragment>
-      <h3 />
+      <h3>Order summary</h3>
       <p>A delicious burger with the following ingredients</p>
       <ul>
           {ingredientsSummary}
