@@ -13,7 +13,6 @@ const INGREDIENT_PRICES = {
 };
 
 class BurgerBuilder extends Component{
-
     state = {
         ingredients: {
             lettuce: 0,
