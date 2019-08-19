@@ -39,7 +39,7 @@ class BurgerBuilder extends Component {
         this.setState({ ingredients: response.data });
       })
       .catch(error => {
-        this.setState({ error: true})
+        this.setState({ error: true });
       });
   }
 
@@ -93,40 +93,20 @@ class BurgerBuilder extends Component {
   };
 
   purchaseContinueHandler = () => {
-    // this.setState({ loading: true });
-
-    // const order = {
-    //   ingredients: this.state.ingredients,
-    //   price: this.state.totalPrice,
-    //   customerData: {
-    //     name: "John Doe",
-    //     address: {
-    //       street: "TestStreet",
-    //       zipCode: "12312",
-    //       country: "Germany"
-    //     },
-    //     email: "test@gmail.com"
-    //   },
-    //   deliveryMethod: "fastest"
-    // };
-
-    // axios
-    //   .post("/orders.json", order)
-    //   .then(() => {
-    //     this.setState({ loading: false, purchasing: false });
-    //   })
-    //   .catch(() => this.setState({ loading: false, purchasing: false }));
-
     const queryParams = [];
-    for(let key in this.state.ingredients){
-      queryParams.push(encodeURIComponent(key) + '=' + encodeURIComponent(this.state.ingredients[key]));
+    for (let key in this.state.ingredients) {
+      queryParams.push(
+        encodeURIComponent(key) +
+          "=" +
+          encodeURIComponent(this.state.ingredients[key])
+      );
     }
-
-    const queryString = queryParams.join('&');
-      this.props.history.push({
-          pathname: '/checkout',
-          search: '?' + queryString
-        });
+    queryParams.push('price=' + this.state.totalPrice);
+    const queryString = queryParams.join("&");
+    this.props.history.push({
+      pathname: "/checkout",
+      search: "?" + queryString
+    });
   };
 
   render() {
@@ -139,9 +119,13 @@ class BurgerBuilder extends Component {
     }
 
     let orderSummary = null;
-    let burger =  this.state.error ? <p>Ingredients can't be loaded</p> : <Spinner />
+    let burger = this.state.error ? (
+      <p>Ingredients can't be loaded</p>
+    ) : (
+      <Spinner />
+    );
 
-    if(this.state.ingredients){
+    if (this.state.ingredients) {
       burger = (
         <Fragment>
           <Burger ingredients={this.state.ingredients} />
