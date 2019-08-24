@@ -18,7 +18,7 @@ class OrderSummary extends Component {
         <p>A delicious burger with the following ingredients</p>
         <ul>{ingredientsSummary}</ul>
         <p>
-          Total price: <strong>{this.props.totalPrice}</strong>
+          Total price: <strong>{Number.parseFloat(this.props.totalPrice).toFixed(2)}</strong>
         </p>
         <p>Continue to checkout</p>
         <Button btnType="danger" clicked={this.props.purchaseCancelled}>
