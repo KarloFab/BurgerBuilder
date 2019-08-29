@@ -14,7 +14,13 @@ class ContactData extends Component {
           type: "text",
           placeholder: "Your name"
         },
-        value: ""
+        value: "",
+        validation: {
+          required: true,
+          minLength: 2,
+          maxLength: 10
+        },
+        valid: false
       },
       street: {
         elementType: "input",
@@ -22,15 +28,29 @@ class ContactData extends Component {
           type: "text",
           placeholder: "Street"
         },
-        value: ""
+        value: "",
+        validation: {
+          required: true,
+          minLength: 1,
+          maxLength: 15
+        },
+        valid: false
       },
       zipCode: {
         elementType: "input",
         elementConfig: {
           type: "text",
-          placeholder: "Zip code"
+          placeholder: "Zip code",
+          minLength: 5,
+          maxLength: 5
         },
-        value: ""
+        value: "",
+        validation: {
+          required: true,
+          minLength: 3,
+          maxLength: 5
+        },
+        valid: false
       },
       country: {
         elementType: "input",
@@ -38,7 +58,13 @@ class ContactData extends Component {
           type: "text",
           placeholder: "Country"
         },
-        value: ""
+        value: "",
+        validation: {
+          required: true,
+          minLength: 3,
+          maxLength: 10
+        },
+        valid: false
       },
       email: {
         elementType: "input",
@@ -46,7 +72,11 @@ class ContactData extends Component {
           type: "email",
           placeholder: "Email"
         },
-        value: ""
+        value: "",
+        validation: {
+          required: true
+        },
+        valid: false
       },
       deliveryMethod: {
         elementType: "select",
@@ -55,19 +85,42 @@ class ContactData extends Component {
             { value: "fastest", displayValue: "Fastests" },
             { value: "cheapest", displayValue: "Cheapest" }
           ]
-        }
+        },
+        validation: {
+          required: true
+        },
+        valid: false
       }
     },
     loading: false
   };
+
+  checkValidity(value, rules) {
+    let isValid = true;
+
+    if (rules.required) {
+      isValid = value.trim() !== "";
+    }
+
+    if(rules.minLength){
+        isValid = value.length >= rules.minLength;
+    }
+
+    if(rules.isMaxLength){
+        isValid = value.length <= rules.isMaxLength;
+    }
+    return isValid;
+  }
 
   orderHandler = event => {
     event.preventDefault();
     this.setState({ loading: true });
 
     const formData = {};
-    for(let formElementIdentifier in this.state.orderForm){
-        formData[formElementIdentifier] = this.state.orderForm[formElementIdentifier].value;
+    for (let formElementIdentifier in this.state.orderForm) {
+      formData[formElementIdentifier] = this.state.orderForm[
+        formElementIdentifier
+      ].value;
     }
 
     const order = {
@@ -86,18 +139,21 @@ class ContactData extends Component {
   };
 
   inputChangedHandler = (event, inputIdentifier) => {
-
     const updatedOrderForm = {
-        ...this.state.orderForm
-    }
+      ...this.state.orderForm
+    };
 
     const updatedFormInnerElement = { ...updatedOrderForm[inputIdentifier] };
-    
+
     updatedFormInnerElement.value = event.target.value;
+    updatedFormInnerElement.valid = this.checkValidity(
+      updatedFormInnerElement.value,
+      updatedFormInnerElement.validation
+    );
     updatedOrderForm[inputIdentifier] = updatedFormInnerElement;
 
-    this.setState({orderForm: updatedOrderForm});
-  }
+    this.setState({ orderForm: updatedOrderForm });
+  };
 
   render() {
     const fomrElementsArray = [];
@@ -116,7 +172,7 @@ class ContactData extends Component {
             elementType={formElement.config.elementType}
             elementConfig={formElement.config.elementConfig}
             value={formElement.config.value}
-            changed={(event) => this.inputChangedHandler(event, formElement.id)}
+            changed={event => this.inputChangedHandler(event, formElement.id)}
           />
         ))}
         <Button btnType="success" clicked={this.orderHandler}>
