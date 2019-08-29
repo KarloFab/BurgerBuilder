@@ -20,7 +20,8 @@ class ContactData extends Component {
           minLength: 2,
           maxLength: 10
         },
-        valid: false
+        valid: false,
+        touched: false
       },
       street: {
         elementType: "input",
@@ -34,7 +35,8 @@ class ContactData extends Component {
           minLength: 1,
           maxLength: 15
         },
-        valid: false
+        valid: false,
+        touched: false
       },
       zipCode: {
         elementType: "input",
@@ -50,7 +52,8 @@ class ContactData extends Component {
           minLength: 3,
           maxLength: 5
         },
-        valid: false
+        valid: false,
+        touched: false
       },
       country: {
         elementType: "input",
@@ -64,7 +67,8 @@ class ContactData extends Component {
           minLength: 3,
           maxLength: 10
         },
-        valid: false
+        valid: false,
+        touched: false
       },
       email: {
         elementType: "input",
@@ -76,7 +80,8 @@ class ContactData extends Component {
         validation: {
           required: true
         },
-        valid: false
+        valid: false,
+        touched: false
       },
       deliveryMethod: {
         elementType: "select",
@@ -85,11 +90,7 @@ class ContactData extends Component {
             { value: "fastest", displayValue: "Fastests" },
             { value: "cheapest", displayValue: "Cheapest" }
           ]
-        },
-        validation: {
-          required: true
-        },
-        valid: false
+        }
       }
     },
     loading: false
@@ -102,12 +103,12 @@ class ContactData extends Component {
       isValid = value.trim() !== "";
     }
 
-    if(rules.minLength){
-        isValid = value.length >= rules.minLength;
+    if (rules.minLength) {
+      isValid = value.length >= rules.minLength;
     }
 
-    if(rules.isMaxLength){
-        isValid = value.length <= rules.isMaxLength;
+    if (rules.isMaxLength) {
+      isValid = value.length <= rules.isMaxLength;
     }
     return isValid;
   }
@@ -150,6 +151,7 @@ class ContactData extends Component {
       updatedFormInnerElement.value,
       updatedFormInnerElement.validation
     );
+    updatedFormInnerElement.touched = true;
     updatedOrderForm[inputIdentifier] = updatedFormInnerElement;
 
     this.setState({ orderForm: updatedOrderForm });
@@ -172,6 +174,9 @@ class ContactData extends Component {
             elementType={formElement.config.elementType}
             elementConfig={formElement.config.elementConfig}
             value={formElement.config.value}
+            invalid={!formElement.config.valid}
+            shouldValidate={formElement.config.validation}
+            touched={formElement.config.touched}
             changed={event => this.inputChangedHandler(event, formElement.id)}
           />
         ))}
