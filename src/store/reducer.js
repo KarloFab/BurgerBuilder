@@ -1,6 +1,6 @@
 import * as actionTypes from "./actions";
 
-const intialState = {
+const initialState = {
   ingredients: {
     salad: 0,
     bacon: 0,
@@ -10,7 +10,7 @@ const intialState = {
   totalPrice: 4
 };
 
-const reducer = (state = intialState, action) => {
+const reducer = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.ADD_INGREDIENT:
       return {
