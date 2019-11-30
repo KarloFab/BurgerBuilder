@@ -18,7 +18,7 @@ const componseEnhancers =
     order: orderReducer
   })
 
-const store = createStore(reducer, componseEnhancers(applyMiddleware(thunk)));
+const store = createStore(rootReducer, componseEnhancers(applyMiddleware(thunk)));
 
 const app = (
   <Provider store={store}>
