@@ -15,6 +15,7 @@ class BurgerBuilder extends Component {
   };
 
   componentDidMount(){
+    console.log(this.props)
     this.props.onInitIngredients()    
   }
 
@@ -60,6 +61,7 @@ class BurgerBuilder extends Component {
     );
 
     if (this.props.ingredients) {
+      console.log("Ingreidents before burger:  " + this.props.ingredients)
       burger = (
         <Fragment>
           <Burger ingredients={this.props.ingredients} />
