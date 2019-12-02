@@ -4,7 +4,6 @@ import App from "./App";
 import "./index.css";
 import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
-import reducer from "./store/reducers/burgerBuilder";
 import thunk from "redux-thunk";
 import { createStore, applyMiddleware, compose, combineReducers } from "redux";
 import burgerBuilderReducer from './store/reducers/burgerBuilder';

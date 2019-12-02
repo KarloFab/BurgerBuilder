@@ -30,9 +30,9 @@ const reducer = (state = intialState, action) => {
             }
         case actionTypes.PURCHASE_BURGER_FAIL:
             return {
-                ...state,
-                loading: false
-            }
+              ...state,
+              loading: false
+            };
         default:
             return state;
     }
