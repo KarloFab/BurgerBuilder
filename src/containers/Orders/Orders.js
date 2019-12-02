@@ -4,10 +4,12 @@ import * as actions from "../../store/actions/index";
 import { connect } from "react-redux";
 import Spinner from "../../components/UI/Spinner/Spinner";
 import withErrorHandler from "../../components/withErrorHandler/withErrorHandler";
+import axios from '../../axios-order';
 
 class Orders extends Component {
+  
   componentDidMount() {
-    this.props.fetchOrders();
+    this.props.onFetchOrders();
   }
 
   render() {
@@ -43,4 +45,4 @@ const mapDispatchToProps = dispatch => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(withErrorHandler(Orders));
+)(withErrorHandler(Orders, axios));

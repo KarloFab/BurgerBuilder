@@ -66,10 +66,11 @@ export const fetchOrdersStart = () => {
 
 export const fetchOrders = () => {
     return dispatch => {
-        dispatch(fetchOrdersStart())
+        dispatch(fetchOrdersStart());
         axios
         .get("/orders.json")
         .then(res => {
+
           const fetchedOrders = []
           for(let key in res.data) {
               fetchedOrders.push({
@@ -77,7 +78,7 @@ export const fetchOrders = () => {
                   id: key
               });
           }
-          dispatch(fetchOrdersSuccess(fetchOrders))
+          dispatch(fetchOrdersSuccess(fetchedOrders))
         })
         .catch(err => {
           dispatch(fetchOrdersFail(err))
