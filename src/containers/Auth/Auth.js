@@ -37,6 +37,40 @@ class Auth extends Component {
     }
   };
 
+  checkValidity(value, rules) {
+    let isValid = true;
+
+    if(!rules){
+      return true;
+    }
+
+    if (rules.required) {
+      isValid = value.trim() !== "";
+    }
+
+    if (rules.minLength) {
+      isValid = value.length >= rules.minLength;
+    }
+
+    if (rules.isMaxLength) {
+      isValid = value.length <= rules.isMaxLength;
+    }
+    return isValid;
+  }
+
+  inputChangedHandler = (event, controlName) => {
+      const updatedControls = {
+          ...this.state.controls,
+            [controlName]: {
+                ...this.state.controls[controlName],
+                value: event.target.value,
+                valid: this.checkValidity(event.target.value, this.state.controls[controlName].validation),
+                touched: true
+            }
+      };
+      this.setState({ controls: updatedControls})
+  }
+
   render() {
     const fomrElementsArray = [];
     for (let key in this.state.controls) {
