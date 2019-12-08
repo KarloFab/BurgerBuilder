@@ -75,19 +75,19 @@ class Auth extends Component {
 
   submitHandler = (event) => {
       event.preventDefault();
-      this.props.auth(this.state.controls.email.value,this.state.controls.password.value)
+      this.props.onAuth(this.state.controls.email.value,this.state.controls.password.value)
   }
 
   render() {
-    const fomrElementsArray = [];
+    const formElementsArray = [];
     for (let key in this.state.controls) {
-      fomrElementsArray.push({
+      formElementsArray.push({
         id: key,
         config: this.state.controls[key]
       });
     }
 
-    const form = fomrElementsArray.map(formElement => (
+    const form = formElementsArray.map(formElement => (
         <Input 
             key={formElement.id} 
             elementType={formElement.config.elementType}
