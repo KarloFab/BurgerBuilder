@@ -61,7 +61,6 @@ class BurgerBuilder extends Component {
     );
 
     if (this.props.ingredients) {
-      console.log("Ingreidents before burger:  " + this.props.ingredients)
       burger = (
         <Fragment>
           <Burger ingredients={this.props.ingredients} />
@@ -102,7 +101,7 @@ const mapStateToProps = state => {
   return {
     ingredients: state.burgerBuilder.ingredients,
     totalPrice: state.burgerBuilder.totalPrice,
-    error: state.burgerBuilder.error
+    error: state.burgerBuilder.error,
   };
 };
 
