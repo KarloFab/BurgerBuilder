@@ -4,12 +4,15 @@ import NavigationItem from "../NavigationItems/NavigationItem/NavigationItem";
 
 const navigationItems = props => (
   <ul className={styles.navigationItems}>
+    (
     <NavigationItem link="/" active>
       Burger Builder
     </NavigationItem>
-    <NavigationItem link="/orders" active>
-      Orders
-    </NavigationItem>
+    {props.isAuthenticated ? (
+      <NavigationItem link="/orders" active>
+        Orders
+      </NavigationItem>
+    ) : null}
     {!props.isAuthenticated ? (
       <NavigationItem link="/auth" active>
         Authenticate
