@@ -11,7 +11,8 @@ const INGREDIENT_PRICES = {
 const initialState = {
   ingredients: null,
   totalPrice: 4,
-  error: false
+  error: false,
+  building: false
 };
 
 const reducer = (state = initialState, action) => {
@@ -51,10 +52,11 @@ const reducer = (state = initialState, action) => {
           meat: action.ingredients.meat
         },
         totalPrice: 4,
-        error: false
+        error: false,
+        building: false
       });
     case actionTypes.FETCH_INGREDIENTS_FAILED:
-      return updateObject(state, { error: true})
+      return updateObject(state, { error: true });
     default:
       return state;
   }
