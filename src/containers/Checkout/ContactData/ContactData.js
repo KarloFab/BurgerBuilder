@@ -135,7 +135,8 @@ class ContactData extends Component {
     const order = {
       ingredients: this.props.ingredients,
       price: this.state.totalPrice,
-      orderData: formData
+      orderData: formData,
+      userId: this.props.userId
     };
 
     this.props.onOrderBurger(order, this.props.token);
