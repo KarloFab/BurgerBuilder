@@ -5,6 +5,7 @@ import Spinner from "../../../components/UI/Spinner/Spinner";
 import Input from "../../../components/UI/Input/Input";
 import { connect } from 'react-redux';
 import * as actions from '../../../store/actions/index'
+import { checkValidity} from '../../../shared/utility';
 
 class ContactData extends Component {
   state = {
@@ -101,27 +102,6 @@ class ContactData extends Component {
     loading: false
   };
 
-  checkValidity(value, rules) {
-    let isValid = true;
-
-    if(!rules){
-      return true;
-    }
-
-    if (rules.required) {
-      isValid = value.trim() !== "";
-    }
-
-    if (rules.minLength) {
-      isValid = value.length >= rules.minLength;
-    }
-
-    if (rules.isMaxLength) {
-      isValid = value.length <= rules.isMaxLength;
-    }
-    return isValid;
-  }
-
   orderHandler = event => {
     event.preventDefault();
 
@@ -150,7 +130,7 @@ class ContactData extends Component {
     const updatedFormInnerElement = { ...updatedOrderForm[inputIdentifier] };
 
     updatedFormInnerElement.value = event.target.value;
-    updatedFormInnerElement.valid = this.checkValidity(
+    updatedFormInnerElement.valid = checkValidity(
       updatedFormInnerElement.value,
       updatedFormInnerElement.validation
     );
