@@ -4,7 +4,6 @@ import NavigationItem from "../NavigationItems/NavigationItem/NavigationItem";
 
 const navigationItems = props => (
   <ul className={styles.navigationItems}>
-    (
     <NavigationItem link="/" active>
       Burger Builder
     </NavigationItem>
