@@ -1,16 +1,51 @@
-import { put } from 'redux-saga/effects';
-import { delay } from 'redux-saga';
-import * as actions from '../actions/index';
+import { put } from "redux-saga/effects";
+import { delay } from "redux-saga/effects";
+import * as actions from "../actions/index";
+import axios from "axios";
 
-export function* logoutSaga(action){
-    yield localStorage.removeItem("token");
-    yield localStorage.removeItem("expirationTime");
-    yield localStorage.removeItem("userId");
+export function* logoutSaga(action) {
+  yield localStorage.removeItem("token");
+  yield localStorage.removeItem("expirationTime");
+  yield localStorage.removeItem("userId");
 
-   yield put (actions.logoutSucceed);
+  yield put(actions.logoutSucceed);
 }
 
-export function* checkAuthTimeoutSaga (action) {
-    yield delay(action.expirationTime * 1000);
-    yield put(actions.logout())
+export function* checkAuthTimeoutSaga(action) {
+  yield delay(action.expirationTime * 1000);
+  yield put(actions.logout());
+}
+
+export function* authUserSaga(action) {
+  yield put(actions.authStart);
+  authStart();
+  const authData = {
+    email: action.email,
+    password: action.password,
+    returnSecureToken: true
+  };
+  let url =
+    "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyDD4x63D-hJvAYjMbVIHo8AWdGAHzME_vE";
+
+  if (!isSignUp) {
+    url =
+      "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyDD4x63D-hJvAYjMbVIHo8AWdGAHzME_vE";
+  }
+
+  try {
+    const response = yield axios.post(url, authData);
+
+    const expirationTime = new Date(
+      new Date().getTime() + response.data.expiresIn * 1000
+    );
+    yield localStorage.setItem("token", response.data.idToken);
+    yield localStorage.setItem("expirationTime", expirationTime);
+    yield localStorage.setItem("userId", response.data.localId);
+    yield puth(
+      actions.authSuccess(response.data.idToken, response.data.localId)
+    );
+    yield put(checkAuthTimeout(response.data.expiresIn));
+  } catch(error){
+      yield put(actions.authFail(error.response.data.error))
+  }
 }
