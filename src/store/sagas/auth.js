@@ -17,8 +17,7 @@ export function* checkAuthTimeoutSaga(action) {
 }
 
 export function* authUserSaga(action) {
-  yield put(actions.authStart);
-  authStart();
+  yield put(actions.authStart());
   const authData = {
     email: action.email,
     password: action.password,
@@ -27,7 +26,7 @@ export function* authUserSaga(action) {
   let url =
     "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyDD4x63D-hJvAYjMbVIHo8AWdGAHzME_vE";
 
-  if (!isSignUp) {
+  if (!action.isSignUp) {
     url =
       "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyDD4x63D-hJvAYjMbVIHo8AWdGAHzME_vE";
   }
@@ -41,10 +40,10 @@ export function* authUserSaga(action) {
     yield localStorage.setItem("token", response.data.idToken);
     yield localStorage.setItem("expirationTime", expirationTime);
     yield localStorage.setItem("userId", response.data.localId);
-    yield puth(
+    yield put (
       actions.authSuccess(response.data.idToken, response.data.localId)
     );
-    yield put(checkAuthTimeout(response.data.expiresIn));
+    yield put(actions.checkAuthTimeout(response.data.expiresIn));
   } catch(error){
       yield put(actions.authFail(error.response.data.error))
   }

@@ -18,5 +18,6 @@ export {
     logoutSucceed,
     authStart,
     authSuccess,
-    authFail
+    authFail,
+    checkAuthTimeout
 } from './auth';
