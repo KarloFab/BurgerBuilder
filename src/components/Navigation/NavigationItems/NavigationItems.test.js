@@ -25,9 +25,11 @@ describe("<NavigationItems />", () => {
   it("should logut <NavigationItem/>", () => {
     wrapper.setProps({ isAuthenticated: true });
     expect(
-      wrapper.contains(      <NavigationItem link="/logout" active>
-      Logout
-    </NavigationItem>)
+      wrapper.contains(
+        <NavigationItem link="/logout" active>
+          Logout
+        </NavigationItem>
+      )
     ).toEqual(true);
   });
 });
