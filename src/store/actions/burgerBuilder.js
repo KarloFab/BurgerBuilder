@@ -23,12 +23,12 @@ export const setIngredients = ingredients => {
 
 export const fetchIngredeintsFailed = () => {
   return {
-    type: actionTypes.FETCH_INGREDIENTS_FAILED,
+    type: actionTypes.FETCH_INGREDIENTS_FAILED
   };
 };
 
 export const initIngredients = () => {
   return {
     type: actionTypes.INIT_INGREDIENTS
-  }
+  };
 };
