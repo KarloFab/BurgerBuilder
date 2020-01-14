@@ -10,6 +10,9 @@ export {
     purchaseBurger,
     purchaseInit,
     fetchOrders,
+    fetchOrdersFail,
+    fetchOrdersStart,
+    fetchOrdersSuccess,
     purchaseBurgerStart,
     purchaseBurgerSuccess,
     purchaseBurgerFail
