@@ -11,7 +11,7 @@ describe("auth reducer", () => {
       authRedirect: "/"
     });
   });
-  
+
   it("should store the token upon login", () => {
     expect(
       reducer(
@@ -37,3 +37,5 @@ describe("auth reducer", () => {
     });
   });
 });
+
+cherry pick
