@@ -12,6 +12,8 @@ describe("auth reducer", () => {
     });
   });
 
+  bla
+
   it("should store the token upon login", () => {
     expect(
       reducer(
