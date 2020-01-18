@@ -37,5 +37,3 @@ describe("auth reducer", () => {
     });
   });
 });
-
-cherry pick
